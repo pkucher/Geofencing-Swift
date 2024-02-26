@@ -7,23 +7,37 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		A0DB76C5A5C556AB829EBBF8 /* libPods-CoreLocationPock.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 41A6FA3D828912C9028836CA /* libPods-CoreLocationPock.a */; };
+		CE0A426D2B86688600556BDA /* MapService.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0A426C2B86688600556BDA /* MapService.swift */; };
+		CE0A426F2B8668DD00556BDA /* AddressResultModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0A426E2B8668DD00556BDA /* AddressResultModel.swift */; };
+		CE0A42712B8681E300556BDA /* MapViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE0A42702B8681E300556BDA /* MapViewModel.swift */; };
 		CE26A9552B838D1C00BDB402 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9542B838D1C00BDB402 /* AppDelegate.swift */; };
 		CE26A9592B838D1C00BDB402 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9582B838D1C00BDB402 /* ViewController.swift */; };
 		CE26A95E2B838D1E00BDB402 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = CE26A95D2B838D1E00BDB402 /* Assets.xcassets */; };
 		CE26A9612B838D1E00BDB402 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = CE26A95F2B838D1E00BDB402 /* LaunchScreen.storyboard */; };
 		CE26A9692B83907300BDB402 /* HomeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A9682B83907300BDB402 /* HomeViewController.swift */; };
 		CE26A96B2B8390AC00BDB402 /* LocationList.gpx in Resources */ = {isa = PBXBuildFile; fileRef = CE26A96A2B8390AC00BDB402 /* LocationList.gpx */; };
+		CE26A9702B83D3AF00BDB402 /* MapViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CE26A96F2B83D3AF00BDB402 /* MapViewController.swift */; };
+		CEED1E702B87C119008FFFBE /* AddressViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = CEED1E6F2B87C119008FFFBE /* AddressViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		41A6FA3D828912C9028836CA /* libPods-CoreLocationPock.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CoreLocationPock.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		51670B633DDC2258F8790701 /* Pods-CoreLocationPock.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreLocationPock.release.xcconfig"; path = "Target Support Files/Pods-CoreLocationPock/Pods-CoreLocationPock.release.xcconfig"; sourceTree = "<group>"; };
+		BBF0CF2F381AC7D3A60A8DE5 /* Pods-CoreLocationPock.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CoreLocationPock.debug.xcconfig"; path = "Target Support Files/Pods-CoreLocationPock/Pods-CoreLocationPock.debug.xcconfig"; sourceTree = "<group>"; };
+		CE0A426C2B86688600556BDA /* MapService.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapService.swift; sourceTree = "<group>"; };
+		CE0A426E2B8668DD00556BDA /* AddressResultModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressResultModel.swift; sourceTree = "<group>"; };
+		CE0A42702B8681E300556BDA /* MapViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewModel.swift; sourceTree = "<group>"; };
 		CE26A9512B838D1C00BDB402 /* CoreLocationPock.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CoreLocationPock.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		CE26A9542B838D1C00BDB402 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		CE26A9582B838D1C00BDB402 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
 		CE26A95D2B838D1E00BDB402 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		CE26A9602B838D1E00BDB402 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
-		CE26A9622B838D1E00BDB402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		CE26A9622B838D1E00BDB402 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Info.plist; path = CoreLocationPock/Resource/Info.plist; sourceTree = SOURCE_ROOT; };
 		CE26A9682B83907300BDB402 /* HomeViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = HomeViewController.swift; sourceTree = "<group>"; };
 		CE26A96A2B8390AC00BDB402 /* LocationList.gpx */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.xml; path = LocationList.gpx; sourceTree = "<group>"; };
+		CE26A96F2B83D3AF00BDB402 /* MapViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MapViewController.swift; sourceTree = "<group>"; };
+		CEED1E6F2B87C119008FFFBE /* AddressViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddressViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -31,17 +45,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A0DB76C5A5C556AB829EBBF8 /* libPods-CoreLocationPock.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		1A959AE382D08024C26249F9 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				41A6FA3D828912C9028836CA /* libPods-CoreLocationPock.a */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		CE26A9482B838D1C00BDB402 = {
 			isa = PBXGroup;
 			children = (
 				CE26A9532B838D1C00BDB402 /* CoreLocationPock */,
 				CE26A9522B838D1C00BDB402 /* Products */,
+				D2C95E889F78C1175D9B6E58 /* Pods */,
+				1A959AE382D08024C26249F9 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -56,15 +81,53 @@
 		CE26A9532B838D1C00BDB402 /* CoreLocationPock */ = {
 			isa = PBXGroup;
 			children = (
+				CE26A96E2B83A4FC00BDB402 /* Scene */,
+				CE26A96D2B83A4EE00BDB402 /* Resource */,
+				CE26A96C2B83A4E700BDB402 /* Source */,
+			);
+			path = CoreLocationPock;
+			sourceTree = "<group>";
+		};
+		CE26A96C2B83A4E700BDB402 /* Source */ = {
+			isa = PBXGroup;
+			children = (
 				CE26A9542B838D1C00BDB402 /* AppDelegate.swift */,
+			);
+			path = Source;
+			sourceTree = "<group>";
+		};
+		CE26A96D2B83A4EE00BDB402 /* Resource */ = {
+			isa = PBXGroup;
+			children = (
 				CE26A96A2B8390AC00BDB402 /* LocationList.gpx */,
-				CE26A9682B83907300BDB402 /* HomeViewController.swift */,
-				CE26A9582B838D1C00BDB402 /* ViewController.swift */,
 				CE26A95D2B838D1E00BDB402 /* Assets.xcassets */,
 				CE26A95F2B838D1E00BDB402 /* LaunchScreen.storyboard */,
 				CE26A9622B838D1E00BDB402 /* Info.plist */,
 			);
-			path = CoreLocationPock;
+			path = Resource;
+			sourceTree = "<group>";
+		};
+		CE26A96E2B83A4FC00BDB402 /* Scene */ = {
+			isa = PBXGroup;
+			children = (
+				CE26A9682B83907300BDB402 /* HomeViewController.swift */,
+				CE26A9582B838D1C00BDB402 /* ViewController.swift */,
+				CE26A96F2B83D3AF00BDB402 /* MapViewController.swift */,
+				CE0A42702B8681E300556BDA /* MapViewModel.swift */,
+				CE0A426C2B86688600556BDA /* MapService.swift */,
+				CE0A426E2B8668DD00556BDA /* AddressResultModel.swift */,
+				CEED1E6F2B87C119008FFFBE /* AddressViewController.swift */,
+			);
+			path = Scene;
+			sourceTree = "<group>";
+		};
+		D2C95E889F78C1175D9B6E58 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				BBF0CF2F381AC7D3A60A8DE5 /* Pods-CoreLocationPock.debug.xcconfig */,
+				51670B633DDC2258F8790701 /* Pods-CoreLocationPock.release.xcconfig */,
+			);
+			path = Pods;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -74,9 +137,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = CE26A9652B838D1E00BDB402 /* Build configuration list for PBXNativeTarget "CoreLocationPock" */;
 			buildPhases = (
+				903079341E19D4F9FB423768 /* [CP] Check Pods Manifest.lock */,
 				CE26A94D2B838D1C00BDB402 /* Sources */,
 				CE26A94E2B838D1C00BDB402 /* Frameworks */,
 				CE26A94F2B838D1C00BDB402 /* Resources */,
+				5C818019C6D57C4E4AB9723E /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -133,14 +198,61 @@
 		};
 /* End PBXResourcesBuildPhase section */
 
+/* Begin PBXShellScriptBuildPhase section */
+		5C818019C6D57C4E4AB9723E /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoreLocationPock/Pods-CoreLocationPock-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-CoreLocationPock/Pods-CoreLocationPock-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-CoreLocationPock/Pods-CoreLocationPock-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		903079341E19D4F9FB423768 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-CoreLocationPock-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
+
 /* Begin PBXSourcesBuildPhase section */
 		CE26A94D2B838D1C00BDB402 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				CE0A426D2B86688600556BDA /* MapService.swift in Sources */,
 				CE26A9592B838D1C00BDB402 /* ViewController.swift in Sources */,
 				CE26A9552B838D1C00BDB402 /* AppDelegate.swift in Sources */,
+				CEED1E702B87C119008FFFBE /* AddressViewController.swift in Sources */,
 				CE26A9692B83907300BDB402 /* HomeViewController.swift in Sources */,
+				CE0A42712B8681E300556BDA /* MapViewModel.swift in Sources */,
+				CE0A426F2B8668DD00556BDA /* AddressResultModel.swift in Sources */,
+				CE26A9702B83D3AF00BDB402 /* MapViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -279,14 +391,19 @@
 		};
 		CE26A9662B838D1E00BDB402 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BBF0CF2F381AC7D3A60A8DE5 /* Pods-CoreLocationPock.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8VS4SN4BXS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CoreLocationPock/Info.plist;
+				INFOPLIST_FILE = CoreLocationPock/Resource/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Necessario o uso da localização para que possa usar o core location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Necessario o uso da localização para que possa usar o core location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -298,6 +415,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = brq.CoreLocationPock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -306,14 +424,19 @@
 		};
 		CE26A9672B838D1E00BDB402 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 51670B633DDC2258F8790701 /* Pods-CoreLocationPock.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = 8VS4SN4BXS;
+				ENABLE_USER_SCRIPT_SANDBOXING = NO;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = CoreLocationPock/Info.plist;
+				INFOPLIST_FILE = CoreLocationPock/Resource/Info.plist;
+				INFOPLIST_KEY_NSLocationAlwaysAndWhenInUseUsageDescription = "Necessario o uso da localização para que possa usar o core location";
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "Necessario o uso da localização para que possa usar o core location";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
@@ -325,6 +448,7 @@
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = brq.CoreLocationPock;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
