@@ -9,7 +9,7 @@ import Foundation
 
 class MapService {
     var baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="
-    private let key = "&key=AIzaSyA05p4CG-EAJTN8fbDmG9j-6eWH5kobt0M"
+    private let key = "&key=GoogleKey"
     
     
     func getAddressData(address: String, completion: @escaping (Result<AddressResultModel?, Error>) -> Void){

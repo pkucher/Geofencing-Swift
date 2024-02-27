@@ -30,8 +30,8 @@ class AddressViewController: UIViewController {
         cepTextField.keyboardType = .decimalPad
                 
         addressStreetTextField.placeholder = "Digite o endereço"
-        addressNumberTextField.borderStyle = .roundedRect
-        addressNumberTextField.delegate = self
+        addressStreetTextField.borderStyle = .roundedRect
+        addressStreetTextField.delegate = self
         
         addressNumberTextField.placeholder = "Digite o Numero do endereço"
         addressNumberTextField.borderStyle = .roundedRect
@@ -48,8 +48,8 @@ class AddressViewController: UIViewController {
     
     func constrainUI() {
         view.addSubview(cepTextField)
-        view.addSubview(cepTextField)
-        view.addSubview(cepTextField)
+        view.addSubview(addressStreetTextField)
+        view.addSubview(addressNumberTextField)
         view.addSubview(button)
         view.addSubview(addressResultLabel)
         
@@ -59,8 +59,20 @@ class AddressViewController: UIViewController {
         cepTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         cepTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        addressStreetTextField.translatesAutoresizingMaskIntoConstraints = false
+        addressStreetTextField.topAnchor.constraint(equalTo: cepTextField.bottomAnchor, constant: 40).isActive = true
+        addressStreetTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        addressStreetTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        addressStreetTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        addressNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+        addressNumberTextField.topAnchor.constraint(equalTo: addressStreetTextField.bottomAnchor, constant: 40).isActive = true
+        addressNumberTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        addressNumberTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        addressNumberTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         addressResultLabel.translatesAutoresizingMaskIntoConstraints = false
-        addressResultLabel.topAnchor.constraint(equalTo: cepTextField.bottomAnchor, constant: 20).isActive = true
+        addressResultLabel.topAnchor.constraint(equalTo: addressNumberTextField.bottomAnchor, constant: 20).isActive = true
         addressResultLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         addressResultLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         
@@ -103,11 +115,18 @@ class AddressViewController: UIViewController {
 extension AddressViewController: UITextFieldDelegate {
     
     func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string:  String) -> Bool {
-        let allowedCharacters = "0123456789"
-        if !allowedCharacters.contains(string) {
-            return false
+        if string.isEmpty{ return true }
+        if textField != addressStreetTextField {
+            let allowedCharacters = "0123456789"
+            if !allowedCharacters.contains(string) {
+                return false
+            }
+            textField.text = formattedNumber(replacementString: string)
+            return range.location < 9
         }
-        textField.text = formattedNumber(replacementString: string)
-        return range.location < 9
+        return true
     }
 }
+
+
+extension AddressViewController: UI
