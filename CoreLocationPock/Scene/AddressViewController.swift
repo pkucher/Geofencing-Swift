@@ -1,4 +1,3 @@
-//
 //  AddressViewController.swift
 //  CoreLocationPock
 //
@@ -6,29 +5,36 @@
 //
 
 import UIKit
+import CoreLocation
 
 class AddressViewController: UIViewController {
     
     var cepTextField = UITextField()
     var addressStreetTextField = UITextField()
     var addressNumberTextField = UITextField()
+    var radiusNumberTextField = UITextField()
     var button = UIButton()
     var addressResultLabel = UILabel()
     var viewModel = MapViewModel()
+    var locationManager: CLLocationManager?
+    var activityIndicator: UIActivityIndicatorView?
+    var loadingOverlay: UIView?
     
     override func viewDidLoad(){
         super.viewDidLoad()
         setupUI()
         constrainUI()
+        setupGesture()
     }
     
     func setupUI() {
+        overrideUserInterfaceStyle = .light
         view.backgroundColor = .lightGray
         cepTextField.placeholder = "Digite o Cep"
         cepTextField.borderStyle = .roundedRect
         cepTextField.delegate = self
         cepTextField.keyboardType = .decimalPad
-                
+        
         addressStreetTextField.placeholder = "Digite o endereço"
         addressStreetTextField.borderStyle = .roundedRect
         addressStreetTextField.delegate = self
@@ -38,20 +44,59 @@ class AddressViewController: UIViewController {
         addressNumberTextField.delegate = self
         addressNumberTextField.keyboardType = .decimalPad
         
+        radiusNumberTextField.placeholder = "Digite quantos metros o raio de distancia terá"
+        radiusNumberTextField.borderStyle = .roundedRect
+        radiusNumberTextField.delegate = self
+        radiusNumberTextField.keyboardType = .decimalPad
+        
         button.setTitle("Buscar Endereço", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
+        
         addressResultLabel.numberOfLines = 3
+        locationManager?.requestAlwaysAuthorization()
+        setupLoadingOverlay()
+    }
+    
+    
+    func setupLoadingOverlay() {
+        loadingOverlay = UIView(frame: view.bounds)
+        loadingOverlay?.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+        loadingOverlay?.isHidden = true // Começa oculta
+        
+        activityIndicator = UIActivityIndicatorView(style: .large)
+        activityIndicator?.color = .red
+        activityIndicator?.translatesAutoresizingMaskIntoConstraints = false
+        
+        if let loadingOverlay = loadingOverlay, let activityIndicator = activityIndicator {
+            view.addSubview(loadingOverlay)
+            loadingOverlay.addSubview(activityIndicator)
+            
+            NSLayoutConstraint.activate([
+                activityIndicator.centerXAnchor.constraint(equalTo: loadingOverlay.centerXAnchor),
+                activityIndicator.centerYAnchor.constraint(equalTo: loadingOverlay.centerYAnchor)
+            ])
+        }
+    }
+
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func constrainUI() {
         view.addSubview(cepTextField)
         view.addSubview(addressStreetTextField)
         view.addSubview(addressNumberTextField)
-        view.addSubview(button)
+        view.addSubview(radiusNumberTextField)
         view.addSubview(addressResultLabel)
+        view.addSubview(button)
         
         cepTextField.translatesAutoresizingMaskIntoConstraints = false
         cepTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
@@ -71,52 +116,102 @@ class AddressViewController: UIViewController {
         addressNumberTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         addressNumberTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
         
+        radiusNumberTextField.translatesAutoresizingMaskIntoConstraints = false
+        radiusNumberTextField.topAnchor.constraint(equalTo: addressNumberTextField.bottomAnchor, constant: 40).isActive = true
+        radiusNumberTextField.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        radiusNumberTextField.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        radiusNumberTextField.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
         addressResultLabel.translatesAutoresizingMaskIntoConstraints = false
-        addressResultLabel.topAnchor.constraint(equalTo: addressNumberTextField.bottomAnchor, constant: 20).isActive = true
+        addressResultLabel.topAnchor.constraint(equalTo: radiusNumberTextField.bottomAnchor, constant: 20).isActive = true
         addressResultLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         addressResultLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        
         
         button.translatesAutoresizingMaskIntoConstraints = false
         button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
-        button.widthAnchor.constraint(equalToConstant: 100).isActive = true
-
     }
     
     func formattedNumber(replacementString: String) -> String {
         guard let text = cepTextField.text else { return "" }
-        if text.count == 5 ,
-           replacementString != ""{
+        if text.count == 5, replacementString != "" {
             return text + "-"
         }
         return text
     }
     
+    func showLoading() {
+        loadingOverlay?.isHidden = false
+        activityIndicator?.startAnimating()
+        view.bringSubviewToFront(loadingOverlay!)
+    }
+    
+    func hideLoading() {
+        loadingOverlay?.isHidden = true
+        activityIndicator?.stopAnimating()
+    }
+    
     @objc func buttonAction() {
-        guard let text = cepTextField.text else { return }
+        showLoading()
+        var text = ""
+        if let cepText = cepTextField.text, !cepText.isEmpty {
+            text = "\(extractNumbers(cepText))"
+        }
+        if let addressText = addressStreetTextField.text, !addressText.isEmpty {
+            text = "\(text)+\(addressText)"
+        }
+        if let numberText = addressNumberTextField.text, !numberText.isEmpty {
+            text = "\(text)+\(numberText)"
+        }
+        guard !text.isEmpty else { return }
         viewModel.getData(address: text) {[weak self] in
             guard let self = self,
-            let addressData = self.viewModel.addressData?.first else { 
+                  let addressData = self.viewModel.addressData?.first else {
                 self?.addressResultLabel.text = "Erro na requisição"
                 return
+            }
+            for component in addressData.addressComponents {
+                if component.types.contains(where: {$0 == "route"}) {
+                    self.addressStreetTextField.text =  component.longName
+                }
+                if component.types.contains(where: {$0 == "postal_code"}) {
+                    self.cepTextField.text = component.longName
+                }
+            }
+            DispatchQueue.main.async {
+                self.hideLoading()
             }
             addressResultLabel.text = addressData.formattedAddress
             if !viewModel.hasError,
                viewModel.addressData != nil {
+                guard let radiusString = radiusNumberTextField.text,
+                      let radius = Int(radiusString) else {
+                    self.addressResultLabel.text = "Por favor inserir o raio"
+                    return
+                }
+                viewModel.raidusMeterDistance = radius
                 navigationController?.pushViewController(MapViewController(viewModel: viewModel), animated: true)
             }
         }
     }
+    
+    func extractNumbers(_ input: String) -> String {
+        let numbers = input.filter { $0.isNumber }
+        return String(numbers)
+    }
 }
-
 
 extension AddressViewController: UITextFieldDelegate {
     
-    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string:  String) -> Bool {
-        if string.isEmpty{ return true }
-        if textField != addressStreetTextField {
+    func textField(_ textField: UITextField, shouldChangeCharactersIn range: NSRange, replacementString string: String) -> Bool {
+        if string.isEmpty { return true }
+        if textField == radiusNumberTextField {
+            return range.location < 4
+        }
+        if textField == cepTextField {
             let allowedCharacters = "0123456789"
             if !allowedCharacters.contains(string) {
                 return false
@@ -125,5 +220,24 @@ extension AddressViewController: UITextFieldDelegate {
             return range.location < 9
         }
         return true
+    }
+}
+
+extension AddressViewController: CLLocationManagerDelegate {
+    func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
+        switch manager.authorizationStatus {
+        case .notDetermined:
+            print("Não determinado")
+        case .restricted:
+            print("Restrito")
+        case .denied:
+            print("Negado")
+        case .authorizedAlways:
+            print("Pronto")
+        case .authorizedWhenInUse:
+            print("pront2")
+        default:
+            print("Nada")
+        }
     }
 }

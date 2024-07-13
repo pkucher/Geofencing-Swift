@@ -6,13 +6,17 @@
 //
 
 import Foundation
+import UIKit
 
 class MapService {
     var baseUrl = "https://maps.googleapis.com/maps/api/geocode/json?address="
-    private let key = "&key=GoogleKey"
     
     
     func getAddressData(address: String, completion: @escaping (Result<AddressResultModel?, Error>) -> Void){
+        var key = ""
+        if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
+            key = "&key=\(appDelegate.key)"
+        }
         let urlString = baseUrl + address + key
         let request = NSMutableURLRequest(url: NSURL(string: urlString)! as URL,
                                           cachePolicy: .useProtocolCachePolicy,
@@ -32,6 +36,7 @@ class MapService {
                 completion(.success(models))
                 
             }catch{
+                print(error.localizedDescription)
                 completion(.failure(error))
             }
         })

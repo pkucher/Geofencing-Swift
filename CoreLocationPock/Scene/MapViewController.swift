@@ -45,9 +45,8 @@ class MapViewController: UIViewController {
         guard let coordinate = viewModel?.coordinate else { return }
         mapView.region = MKCoordinateRegion(center: coordinate, latitudinalMeters: 1000, longitudinalMeters: 1000)
         mapView.overrideUserInterfaceStyle = .dark
-        let circle = MKCircle(center: coordinate, radius: 200)
+        let circle = MKCircle(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance))
         mapView.addOverlay(circle)
-
     }
     
     func constraintUI(){
@@ -71,7 +70,7 @@ class MapViewController: UIViewController {
     
     func startMonitoring() {
         guard let coordinate = viewModel?.coordinate else { return }
-        let geofenceRegion = CLCircularRegion(center: coordinate, radius: 100, identifier: "Casa da vó")
+        let geofenceRegion = CLCircularRegion(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance), identifier: "destino")
         
         geofenceRegion.notifyOnExit = true
         geofenceRegion.notifyOnEntry = true
@@ -119,13 +118,13 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
         view.backgroundColor = .red
-        showAlert(message: "Usuario entrando \(region.identifier)")
+        showAlert(message: "Usuario entrando no \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
         view.backgroundColor = .white
-        showAlert(message: "Usuario saindo \(region.identifier)")
+        showAlert(message: "Usuario saindo do \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {

@@ -18,38 +18,212 @@
             endingLineNumber = "10"
             landmarkName = "viewDidLoad()"
             landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "41455415-F16C-4A9D-A11E-CF87B2A48B7D - f95d2125a5314f93"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.HomeViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "32">
+               </Location>
+               <Location
+                  uuid = "41455415-F16C-4A9D-A11E-CF87B2A48B7D - f95d2125a5314f93"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.HomeViewController.viewDidLoad() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/HomeViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "10"
+                  endingLineNumber = "10"
+                  offsetFromSymbolStart = "64">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
       <BreakpointProxy
          BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
          <BreakpointContent
-            uuid = "1717BC58-F897-4868-BA56-1CEC22C6D16A"
+            uuid = "9E3E6879-0714-4969-9371-045EBBEAD03E"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreLocationPock/Scene/MapService.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "40"
+            endingLineNumber = "40"
+            landmarkName = "getAddressData(address:completion:)"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "9E3E6879-0714-4969-9371-045EBBEAD03E - 421d778d495d8720"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.MapService.getAddressData(address: Swift.String, completion: (Swift.Result&lt;Swift.Optional&lt;CoreLocationPock.AddressResultModel&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "1065">
+               </Location>
+               <Location
+                  uuid = "9E3E6879-0714-4969-9371-045EBBEAD03E - 675208de0e06110e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CoreLocationPock.MapService.getAddressData(address: Swift.String, completion: (Swift.Result&lt;Swift.Optional&lt;CoreLocationPock.AddressResultModel&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "1369">
+               </Location>
+               <Location
+                  uuid = "9E3E6879-0714-4969-9371-045EBBEAD03E - 675208de0e06110e"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 @Sendable (Swift.Optional&lt;Foundation.Data&gt;, Swift.Optional&lt;__C.NSURLResponse&gt;, Swift.Optional&lt;Swift.Error&gt;) -&gt; () in CoreLocationPock.MapService.getAddressData(address: Swift.String, completion: (Swift.Result&lt;Swift.Optional&lt;CoreLocationPock.AddressResultModel&gt;, Swift.Error&gt;) -&gt; ()) -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapService.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "40"
+                  endingLineNumber = "40"
+                  offsetFromSymbolStart = "1312">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "F57E22BE-D79E-41DB-A5DF-C3B17CFF91EB"
+            shouldBeEnabled = "Yes"
+            ignoreCount = "0"
+            continueAfterRunningActions = "No"
+            filePath = "CoreLocationPock/Scene/MapViewController.swift"
+            startingColumnNumber = "9223372036854775807"
+            endingColumnNumber = "9223372036854775807"
+            startingLineNumber = "72"
+            endingLineNumber = "72"
+            landmarkName = "startMonitoring()"
+            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "F57E22BE-D79E-41DB-A5DF-C3B17CFF91EB - 751717ea71d2fa9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.MapViewController.startMonitoring() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "69">
+               </Location>
+               <Location
+                  uuid = "F57E22BE-D79E-41DB-A5DF-C3B17CFF91EB - 751717ea71d2fa9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.MapViewController.startMonitoring() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "44">
+               </Location>
+               <Location
+                  uuid = "F57E22BE-D79E-41DB-A5DF-C3B17CFF91EB - 751717ea71d2fa9d"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "CoreLocationPock.MapViewController.startMonitoring() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/MapViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "72"
+                  endingLineNumber = "72"
+                  offsetFromSymbolStart = "92">
+               </Location>
+            </Locations>
+         </BreakpointContent>
+      </BreakpointProxy>
+      <BreakpointProxy
+         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
+         <BreakpointContent
+            uuid = "1BEC0E4E-E04C-4D2C-A208-90D847356871"
             shouldBeEnabled = "Yes"
             ignoreCount = "0"
             continueAfterRunningActions = "No"
             filePath = "CoreLocationPock/Scene/AddressViewController.swift"
             startingColumnNumber = "9223372036854775807"
             endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "90"
-            endingLineNumber = "90"
+            startingLineNumber = "177"
+            endingLineNumber = "177"
             landmarkName = "buttonAction()"
             landmarkType = "7">
-         </BreakpointContent>
-      </BreakpointProxy>
-      <BreakpointProxy
-         BreakpointExtensionID = "Xcode.Breakpoint.FileBreakpoint">
-         <BreakpointContent
-            uuid = "C1487925-EA51-46D9-A7E2-417B50B5FAE3"
-            shouldBeEnabled = "Yes"
-            ignoreCount = "0"
-            continueAfterRunningActions = "No"
-            filePath = "CoreLocationPock/Scene/MapViewModel.swift"
-            startingColumnNumber = "9223372036854775807"
-            endingColumnNumber = "9223372036854775807"
-            startingLineNumber = "24"
-            endingLineNumber = "24"
-            landmarkName = "getData(address:completion:)"
-            landmarkType = "7">
+            <Locations>
+               <Location
+                  uuid = "1BEC0E4E-E04C-4D2C-A208-90D847356871 - 938c363935506374"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 () -&gt; () in CoreLocationPock.AddressViewController.buttonAction() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/AddressViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "1192">
+               </Location>
+               <Location
+                  uuid = "1BEC0E4E-E04C-4D2C-A208-90D847356871 - bf83a49c4713db2"
+                  shouldBeEnabled = "Yes"
+                  ignoreCount = "0"
+                  continueAfterRunningActions = "No"
+                  symbolName = "closure #1 (Swift.String) -&gt; Swift.Bool in closure #1 () -&gt; () in CoreLocationPock.AddressViewController.buttonAction() -&gt; ()"
+                  moduleName = "CoreLocationPock"
+                  usesParentBreakpointCondition = "Yes"
+                  urlString = "file:///Users/user/Geofencing-Swift/CoreLocationPock/Scene/AddressViewController.swift"
+                  startingColumnNumber = "9223372036854775807"
+                  endingColumnNumber = "9223372036854775807"
+                  startingLineNumber = "144"
+                  endingLineNumber = "144"
+                  offsetFromSymbolStart = "68">
+               </Location>
+            </Locations>
          </BreakpointContent>
       </BreakpointProxy>
    </Breakpoints>

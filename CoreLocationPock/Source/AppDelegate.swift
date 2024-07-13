@@ -11,9 +11,9 @@ import GoogleMaps
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-
+    let key = "GOOGLE_KEY"
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        GMSServices.provideAPIKey("AIzaSyDoFSQKJ_F7WoY8cvKSSK4o4stYHjxEA9w")
+        GMSServices.provideAPIKey("")
         let navigationController = UINavigationController(rootViewController: AddressViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
