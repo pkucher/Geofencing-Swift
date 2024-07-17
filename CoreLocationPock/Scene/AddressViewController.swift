@@ -14,6 +14,7 @@ class AddressViewController: UIViewController {
     var addressNumberTextField = UITextField()
     var radiusNumberTextField = UITextField()
     var button = UIButton()
+    var currentLocationButton = UIButton()
     var addressResultLabel = UILabel()
     var viewModel = MapViewModel()
     var locationManager: CLLocationManager?
@@ -49,15 +50,30 @@ class AddressViewController: UIViewController {
         radiusNumberTextField.delegate = self
         radiusNumberTextField.keyboardType = .decimalPad
         
-        button.setTitle("Buscar Endereço", for: .normal)
+        button.setTitle("Buscar endereço", for: .normal)
         button.setTitleColor(.black, for: .normal)
         button.backgroundColor = .white
         button.layer.cornerRadius = 8
         button.addTarget(self, action: #selector(buttonAction), for: .touchUpInside)
         
+        currentLocationButton.setTitle("Usar localização atual", for: .normal)
+        currentLocationButton.setTitleColor(.black, for: .normal)
+        currentLocationButton.backgroundColor = .white
+        currentLocationButton.layer.cornerRadius = 8
+        currentLocationButton.addTarget(self, action: #selector(getCurrentLocation), for: .touchUpInside)
+        
         addressResultLabel.numberOfLines = 3
-        locationManager?.requestAlwaysAuthorization()
+        setupLocationManager()
         setupLoadingOverlay()
+    }
+    
+    func setupLocationManager() {
+        locationManager = CLLocationManager()
+        locationManager?.delegate = self
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.allowsBackgroundLocationUpdates = true
+        
+        locationManager?.requestAlwaysAuthorization()
     }
     
     
@@ -80,15 +96,6 @@ class AddressViewController: UIViewController {
             ])
         }
     }
-
-    func setupGesture() {
-        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
-        view.addGestureRecognizer(tapGesture)
-    }
-    
-    @objc func dismissKeyboard() {
-        view.endEditing(true)
-    }
     
     func constrainUI() {
         view.addSubview(cepTextField)
@@ -97,6 +104,7 @@ class AddressViewController: UIViewController {
         view.addSubview(radiusNumberTextField)
         view.addSubview(addressResultLabel)
         view.addSubview(button)
+        view.addSubview(currentLocationButton)
         
         cepTextField.translatesAutoresizingMaskIntoConstraints = false
         cepTextField.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor, constant: 40).isActive = true
@@ -127,12 +135,26 @@ class AddressViewController: UIViewController {
         addressResultLabel.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         addressResultLabel.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
         
-        
         button.translatesAutoresizingMaskIntoConstraints = false
         button.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
         button.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
-        button.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        button.bottomAnchor.constraint(equalTo: currentLocationButton.topAnchor, constant: -20).isActive = true
         button.heightAnchor.constraint(equalToConstant: 50).isActive = true
+        
+        currentLocationButton.translatesAutoresizingMaskIntoConstraints = false
+        currentLocationButton.rightAnchor.constraint(equalTo: view.rightAnchor, constant: -20).isActive = true
+        currentLocationButton.leftAnchor.constraint(equalTo: view.leftAnchor, constant: 20).isActive = true
+        currentLocationButton.bottomAnchor.constraint(equalTo: view.safeAreaLayoutGuide.bottomAnchor, constant: -20).isActive = true
+        currentLocationButton.heightAnchor.constraint(equalToConstant: 50).isActive = true
+    }
+    
+    func setupGesture() {
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        view.addGestureRecognizer(tapGesture)
+    }
+    
+    @objc func dismissKeyboard() {
+        view.endEditing(true)
     }
     
     func formattedNumber(replacementString: String) -> String {
@@ -154,8 +176,27 @@ class AddressViewController: UIViewController {
         activityIndicator?.stopAnimating()
     }
     
+    @objc func getCurrentLocation(){
+        guard let locationManager = locationManager,
+              let currentLocation = locationManager.location?.coordinate else { return }
+        
+        viewModel.coordinate = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude:  currentLocation.longitude)
+        guard let radiusString = radiusNumberTextField.text,
+              let radius = Int(radiusString) else {
+            self.addressResultLabel.text = "Por favor inserir o raio"
+            return
+        }
+        viewModel.raidusMeterDistance = radius
+        navigationController?.pushViewController(MapViewController(viewModel: viewModel), animated: true)
+    }
+    
     @objc func buttonAction() {
         showLoading()
+        guard let radiusString = radiusNumberTextField.text,
+              let radius = Int(radiusString) else {
+            self.addressResultLabel.text = "Por favor inserir o raio"
+            return
+        }
         var text = ""
         if let cepText = cepTextField.text, !cepText.isEmpty {
             text = "\(extractNumbers(cepText))"
@@ -170,11 +211,16 @@ class AddressViewController: UIViewController {
         viewModel.getData(address: text) {[weak self] in
             guard let self = self,
                   let addressData = self.viewModel.addressData?.first else {
-                self?.addressResultLabel.text = "Erro na requisição"
+                self?.addressResultLabel.text = "Por favor digite um endereço valido"
+                DispatchQueue.main.async {
+                    self?.hideLoading()
+                }
                 return
             }
             for component in addressData.addressComponents {
                 if component.types.contains(where: {$0 == "route"}) {
+                    self.addressStreetTextField.text =  component.longName
+                } else if component.types.contains(where: {$0 == "political"}) {
                     self.addressStreetTextField.text =  component.longName
                 }
                 if component.types.contains(where: {$0 == "postal_code"}) {
@@ -187,12 +233,8 @@ class AddressViewController: UIViewController {
             addressResultLabel.text = addressData.formattedAddress
             if !viewModel.hasError,
                viewModel.addressData != nil {
-                guard let radiusString = radiusNumberTextField.text,
-                      let radius = Int(radiusString) else {
-                    self.addressResultLabel.text = "Por favor inserir o raio"
-                    return
-                }
                 viewModel.raidusMeterDistance = radius
+                self.addressResultLabel.text = ""
                 navigationController?.pushViewController(MapViewController(viewModel: viewModel), animated: true)
             }
         }

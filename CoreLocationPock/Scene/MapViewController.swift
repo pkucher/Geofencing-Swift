@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import UserNotifications
 
 class MapViewController: UIViewController {
     
@@ -29,6 +30,7 @@ class MapViewController: UIViewController {
         setupLocationManager()
         setupMapAndCircle()
         constraintUI()
+        schedule()
     }
     
     func setupLocationManager() {
@@ -51,7 +53,6 @@ class MapViewController: UIViewController {
     
     func constraintUI(){
         view.addSubview(mapView)
-        
         mapView.translatesAutoresizingMaskIntoConstraints = false
         mapView.topAnchor.constraint(equalTo: self.view.topAnchor, constant: 0).isActive = true
         mapView.rightAnchor.constraint(equalTo: self.view.rightAnchor, constant: 0).isActive = true
@@ -62,7 +63,7 @@ class MapViewController: UIViewController {
     func setupGeofencing(){
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self),
               locationManager?.authorizationStatus == .authorizedAlways else {
-            showAlert(message: "Geofencing nao esta habilitado nesse device")
+            showAlert("Geofencing nao esta habilitado nesse device")
             return
         }
         startMonitoring()
@@ -70,17 +71,54 @@ class MapViewController: UIViewController {
     
     func startMonitoring() {
         guard let coordinate = viewModel?.coordinate else { return }
-        let geofenceRegion = CLCircularRegion(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance), identifier: "destino")
+        let geofenceRegion = CLCircularRegion(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance), identifier: "minha casa")
         
         geofenceRegion.notifyOnExit = true
         geofenceRegion.notifyOnEntry = true
         locationManager?.startMonitoring(for: geofenceRegion)
     }
     
-    func showAlert(message: String) {
-        let alert = UIAlertController(title: "Information", message: message, preferredStyle: .alert)
-        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
-        self.present(alert, animated: true)
+    func schedule(){
+        var notificationCenter = UNUserNotificationCenter.current()
+        notificationCenter.delegate = self
+        notificationCenter.getNotificationSettings { settings in
+            switch settings.authorizationStatus {
+            case .notDetermined:
+                notificationCenter.requestAuthorization(options: [.alert, .sound]) { (didAllow, error) in
+                    if didAllow {
+                        print("ok")
+                    }
+                }
+            case .denied:
+                print("denied")
+            case .authorized, .provisional:
+                print("pode mexer")
+            case .ephemeral:
+                print("efemeral")
+            }
+        }
+    }
+    
+    func showAlert(_ message: String){
+        let identifier = "my-morning-notification"
+        let notificationCenter = UNUserNotificationCenter.current()
+       
+        let content = UNMutableNotificationContent()
+        content.title = "teste IOS"
+        content.body = message
+        content.sound = .default
+        
+        let calendar  = Calendar.current
+        var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
+        dateComponents.hour = Calendar.current.component(.hour, from: Date())
+        dateComponents.minute = calendar.component(.minute, from: Date())
+        dateComponents.second = calendar.component(.second, from: Date()) + 10
+        
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
+        
+        notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
+        notificationCenter.add(request)
     }
 }
 
@@ -101,11 +139,11 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
         switch manager.authorizationStatus {
         case .notDetermined:
-            print("Não determinado")
+            print("Não determinado location")
         case .restricted:
-            print("Restrito")
+            print("Restrito location")
         case .denied:
-            print("Negado")
+            print("Negado location")
         case .authorizedAlways:
             setupGeofencing()
         case .authorizedWhenInUse:
@@ -117,14 +155,14 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
-        view.backgroundColor = .red
-        showAlert(message: "Usuario entrando no \(region.identifier)")
+        print("entrou na area")
+        showAlert("Usuario entrando no \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
-        view.backgroundColor = .white
-        showAlert(message: "Usuario saindo do \(region.identifier)")
+        print("saiu na area")
+        showAlert("Usuario saindo do \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
@@ -133,5 +171,13 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
         print("Erro ao obter a localização: \(error.localizedDescription)")
+    }
+}
+
+
+
+extension MapViewController: UNUserNotificationCenterDelegate {
+    func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification, withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        completionHandler([.alert, .sound])
     }
 }
