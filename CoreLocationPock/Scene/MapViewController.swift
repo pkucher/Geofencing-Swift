@@ -71,7 +71,7 @@ class MapViewController: UIViewController {
     
     func startMonitoring() {
         guard let coordinate = viewModel?.coordinate else { return }
-        let geofenceRegion = CLCircularRegion(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance), identifier: "minha casa")
+        let geofenceRegion = CLCircularRegion(center: coordinate, radius: CLLocationDistance(viewModel!.raidusMeterDistance), identifier: "destino")
         
         geofenceRegion.notifyOnExit = true
         geofenceRegion.notifyOnEntry = true
