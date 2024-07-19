@@ -114,7 +114,7 @@ class MapViewController: UIViewController {
         dateComponents.minute = calendar.component(.minute, from: Date())
         dateComponents.second = calendar.component(.second, from: Date()) + 10
         
-        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
         
         notificationCenter.removePendingNotificationRequests(withIdentifiers: [identifier])
