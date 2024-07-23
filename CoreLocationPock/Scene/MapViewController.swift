@@ -112,7 +112,7 @@ class MapViewController: UIViewController {
         var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
         dateComponents.hour = Calendar.current.component(.hour, from: Date())
         dateComponents.minute = calendar.component(.minute, from: Date())
-        dateComponents.second = calendar.component(.second, from: Date()) + 10
+        dateComponents.second = calendar.component(.second, from: Date()) + 5
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -129,7 +129,7 @@ extension MapViewController: MKMapViewDelegate {
         if let overlay = overlay as? MKCircle {
             circleRenderer = MKCircleRenderer(circle: overlay)
             circleRenderer.strokeColor = .red
-            circleRenderer.alpha = 0.5
+            circleRenderer.alpha = 0.3
         }
         return circleRenderer
     }
@@ -156,13 +156,13 @@ extension MapViewController: CLLocationManagerDelegate {
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
         print("entrou na area")
-        showAlert("Usuario entrando no \(region.identifier)")
+        showAlert("Usuario entrando no seu \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
         print("saiu na area")
-        showAlert("Usuario saindo do \(region.identifier)")
+        showAlert("Usuario saindo da area definida")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
