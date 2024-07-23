@@ -195,6 +195,9 @@ class AddressViewController: UIViewController {
         guard let radiusString = radiusNumberTextField.text,
               let radius = Int(radiusString) else {
             self.addressResultLabel.text = "Por favor inserir o raio"
+            DispatchQueue.main.async {
+                self.hideLoading()
+            }
             return
         }
         var text = ""
@@ -220,9 +223,8 @@ class AddressViewController: UIViewController {
             for component in addressData.addressComponents {
                 if component.types.contains(where: {$0 == "route"}) {
                     self.addressStreetTextField.text =  component.longName
-                } else if component.types.contains(where: {$0 == "political"}) {
-                    self.addressStreetTextField.text =  component.longName
                 }
+                
                 if component.types.contains(where: {$0 == "postal_code"}) {
                     self.cepTextField.text = component.longName
                 }

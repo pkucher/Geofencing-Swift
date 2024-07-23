@@ -36,9 +36,9 @@ class MapViewController: UIViewController {
     func setupLocationManager() {
         locationManager = CLLocationManager()
         locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
+        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager?.allowsBackgroundLocationUpdates = true
-        
+        locationManager?.showsBackgroundLocationIndicator = true
         locationManager?.requestAlwaysAuthorization()
     }
     
@@ -63,7 +63,7 @@ class MapViewController: UIViewController {
     func setupGeofencing(){
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self),
               locationManager?.authorizationStatus == .authorizedAlways else {
-            showAlert("Geofencing nao esta habilitado nesse device")
+            showMessage(message: "Geofencing nao esta habilitado nesse device")
             return
         }
         startMonitoring()
@@ -97,6 +97,12 @@ class MapViewController: UIViewController {
                 print("efemeral")
             }
         }
+    }
+    
+    func showMessage(message: String) {
+        let alert = UIAlertController(title: "Information", message: message, preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel))
+        self.present(alert, animated: true)
     }
     
     func showAlert(_ message: String){
@@ -155,22 +161,19 @@ extension MapViewController: CLLocationManagerDelegate {
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
-        print("entrou na area")
         showAlert("Usuario entrando no seu \(region.identifier)")
     }
     
     func locationManager(_ manager: CLLocationManager, didExitRegion region: CLRegion) {
-        guard let region = region as? CLCircularRegion else { return }
-        print("saiu na area")
         showAlert("Usuario saindo da area definida")
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        print("Falha em monitorar esta região")
+        showMessage(message: "Falha em monitorar esta região")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        print("Erro ao obter a localização: \(error.localizedDescription)")
+        showMessage(message: "Erro ao obter a localização: \(error.localizedDescription)")
     }
 }
 
