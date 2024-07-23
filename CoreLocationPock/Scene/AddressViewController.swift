@@ -17,7 +17,7 @@ class AddressViewController: UIViewController {
     var currentLocationButton = UIButton()
     var addressResultLabel = UILabel()
     var viewModel = MapViewModel()
-    var locationManager: CLLocationManager?
+    var locationManager = CLLocationManager()
     var activityIndicator: UIActivityIndicatorView?
     var loadingOverlay: UIView?
     
@@ -68,12 +68,12 @@ class AddressViewController: UIViewController {
     }
     
     func setupLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBest
-        locationManager?.allowsBackgroundLocationUpdates = true
-        
-        locationManager?.requestAlwaysAuthorization()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.showsBackgroundLocationIndicator = true
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.requestAlwaysAuthorization()
     }
     
     
@@ -177,8 +177,7 @@ class AddressViewController: UIViewController {
     }
     
     @objc func getCurrentLocation(){
-        guard let locationManager = locationManager,
-              let currentLocation = locationManager.location?.coordinate else { return }
+        guard let currentLocation = locationManager.location?.coordinate else { return }
         
         viewModel.coordinate = CLLocationCoordinate2D(latitude: currentLocation.latitude, longitude:  currentLocation.longitude)
         guard let radiusString = radiusNumberTextField.text,
@@ -210,7 +209,12 @@ class AddressViewController: UIViewController {
         if let numberText = addressNumberTextField.text, !numberText.isEmpty {
             text = "\(text)+\(numberText)"
         }
-        guard !text.isEmpty else { return }
+        guard !text.isEmpty else {
+            DispatchQueue.main.async {
+                self.hideLoading()
+            }
+            return
+        }
         viewModel.getData(address: text) {[weak self] in
             guard let self = self,
                   let addressData = self.viewModel.addressData?.first else {
@@ -279,7 +283,7 @@ extension AddressViewController: CLLocationManagerDelegate {
         case .authorizedAlways:
             print("Pronto")
         case .authorizedWhenInUse:
-            print("pront2")
+            locationManager.requestAlwaysAuthorization()
         default:
             print("Nada")
         }

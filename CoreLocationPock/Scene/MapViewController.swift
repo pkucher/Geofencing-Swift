@@ -12,7 +12,7 @@ import UserNotifications
 
 class MapViewController: UIViewController {
     
-    var locationManager: CLLocationManager?
+    var locationManager = CLLocationManager()
     var mapView = MKMapView()
     var viewModel: MapViewModel?
     
@@ -31,16 +31,18 @@ class MapViewController: UIViewController {
         setupMapAndCircle()
         constraintUI()
         schedule()
+        if let token = UserDefaults.standard.string(forKey: "alerta") {
+            print("defaults: ", token)
+        }
     }
     
     func setupLocationManager() {
-        locationManager = CLLocationManager()
-        locationManager?.delegate = self
-        locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
-        locationManager?.allowsBackgroundLocationUpdates = true
-        locationManager?.showsBackgroundLocationIndicator = true
-        locationManager?.pausesLocationUpdatesAutomatically = false
-        locationManager?.requestAlwaysAuthorization()
+        locationManager.delegate = self
+        locationManager.desiredAccuracy = kCLLocationAccuracyBestForNavigation
+        locationManager.allowsBackgroundLocationUpdates = true
+        locationManager.showsBackgroundLocationIndicator = true
+        locationManager.pausesLocationUpdatesAutomatically = false
+        locationManager.requestAlwaysAuthorization()
     }
     
     func setupMapAndCircle() {
@@ -63,7 +65,7 @@ class MapViewController: UIViewController {
     
     func setupGeofencing(){
         guard CLLocationManager.isMonitoringAvailable(for: CLCircularRegion.self),
-              locationManager?.authorizationStatus == .authorizedAlways else {
+              locationManager.authorizationStatus == .authorizedAlways else {
             showMessage(message: "Geofencing nao esta habilitado nesse device")
             return
         }
@@ -76,7 +78,7 @@ class MapViewController: UIViewController {
         
         geofenceRegion.notifyOnExit = true
         geofenceRegion.notifyOnEntry = true
-        locationManager?.startMonitoring(for: geofenceRegion)
+        locationManager.startMonitoring(for: geofenceRegion)
     }
     
     func schedule(){
@@ -107,6 +109,7 @@ class MapViewController: UIViewController {
     }
     
     func showAlert(_ message: String){
+        UserDefaults.standard.setValue("\(message)", forKey: "alerta")
         let identifier = "my-morning-notification"
         let notificationCenter = UNUserNotificationCenter.current()
        
@@ -154,7 +157,7 @@ extension MapViewController: CLLocationManagerDelegate {
             case .authorizedAlways:
                 setupGeofencing()
             case .authorizedWhenInUse:
-                locationManager?.requestAlwaysAuthorization()
+                locationManager.requestAlwaysAuthorization()
             default:
                 print("Status de autorização desconhecido")
             }
@@ -170,11 +173,11 @@ extension MapViewController: CLLocationManagerDelegate {
     }
     
     func locationManager(_ manager: CLLocationManager, monitoringDidFailFor region: CLRegion?, withError error: Error) {
-        showMessage(message: "Falha em monitorar esta região")
+        showAlert("Falha em monitorar esta região: \(error.localizedDescription)")
     }
     
     func locationManager(_ manager: CLLocationManager, didFailWithError error: Error) {
-        showMessage(message: "Erro ao obter a localização: \(error.localizedDescription)")
+        showAlert("Erro ao obter a localização: \(error.localizedDescription)")
     }
 }
 
