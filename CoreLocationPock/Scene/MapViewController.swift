@@ -39,6 +39,7 @@ class MapViewController: UIViewController {
         locationManager?.desiredAccuracy = kCLLocationAccuracyBestForNavigation
         locationManager?.allowsBackgroundLocationUpdates = true
         locationManager?.showsBackgroundLocationIndicator = true
+        locationManager?.pausesLocationUpdatesAutomatically = false
         locationManager?.requestAlwaysAuthorization()
     }
     
@@ -86,15 +87,15 @@ class MapViewController: UIViewController {
             case .notDetermined:
                 notificationCenter.requestAuthorization(options: [.alert, .sound]) { (didAllow, error) in
                     if didAllow {
-                        print("ok")
+                        print("Notificações autorizadas")
                     }
                 }
             case .denied:
-                print("denied")
+                print("Notificações negadas")
             case .authorized, .provisional:
-                print("pode mexer")
+                print("Notificações permitidas")
             case .ephemeral:
-                print("efemeral")
+                print("Status de autorização desconhecido")
             }
         }
     }
@@ -118,7 +119,7 @@ class MapViewController: UIViewController {
         var dateComponents = DateComponents(calendar: calendar, timeZone: TimeZone.current)
         dateComponents.hour = Calendar.current.component(.hour, from: Date())
         dateComponents.minute = calendar.component(.minute, from: Date())
-        dateComponents.second = calendar.component(.second, from: Date()) + 5
+        dateComponents.second = calendar.component(.second, from: Date()) + 3
         
         let trigger = UNCalendarNotificationTrigger(dateMatching: dateComponents, repeats: false)
         let request = UNNotificationRequest(identifier: identifier, content: content, trigger: trigger)
@@ -143,21 +144,21 @@ extension MapViewController: MKMapViewDelegate {
 
 extension MapViewController: CLLocationManagerDelegate {
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-        switch manager.authorizationStatus {
-        case .notDetermined:
-            print("Não determinado location")
-        case .restricted:
-            print("Restrito location")
-        case .denied:
-            print("Negado location")
-        case .authorizedAlways:
-            setupGeofencing()
-        case .authorizedWhenInUse:
-            locationManager?.requestAlwaysAuthorization()
-        default:
-            print("Nada")
+            switch manager.authorizationStatus {
+            case .notDetermined:
+                print("Autorização de localização não determinada")
+            case .restricted:
+                print("Autorização de localização restrita")
+            case .denied:
+                print("Autorização de localização negada")
+            case .authorizedAlways:
+                setupGeofencing()
+            case .authorizedWhenInUse:
+                locationManager?.requestAlwaysAuthorization()
+            default:
+                print("Status de autorização desconhecido")
+            }
         }
-    }
     
     func locationManager(_ manager: CLLocationManager, didEnterRegion region: CLRegion) {
         guard let region = region as? CLCircularRegion else { return }
