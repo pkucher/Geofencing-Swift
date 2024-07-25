@@ -216,12 +216,12 @@ class AddressViewController: UIViewController {
             return
         }
         viewModel.getData(address: text) {[weak self] in
+            DispatchQueue.main.async {
+                self?.hideLoading()
+            }
             guard let self = self,
                   let addressData = self.viewModel.addressData?.first else {
                 self?.addressResultLabel.text = "Por favor digite um endereço valido"
-                DispatchQueue.main.async {
-                    self?.hideLoading()
-                }
                 return
             }
             for component in addressData.addressComponents {
@@ -233,15 +233,13 @@ class AddressViewController: UIViewController {
                     self.cepTextField.text = component.longName
                 }
             }
-            DispatchQueue.main.async {
-                self.hideLoading()
-            }
             addressResultLabel.text = addressData.formattedAddress
             if !viewModel.hasError,
                viewModel.addressData != nil {
                 viewModel.raidusMeterDistance = radius
-                self.addressResultLabel.text = ""
-                navigationController?.pushViewController(MapViewController(viewModel: viewModel), animated: true)
+                self.addressResultLabel.text = "Voce será notificado quando entrar ou sair na area do destino"
+                LocationManager.shared.startMonitoring(for: viewModel.coordinate!, radius: CLLocationDistance(radius))
+//                navigationController?.pushViewController(MapViewController(viewModel: viewModel), animated: true)
             }
         }
     }

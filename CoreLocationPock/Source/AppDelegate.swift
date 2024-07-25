@@ -1,19 +1,20 @@
-//
-//  AppDelegate.swift
-//  CoreLocationPock
-//
-//  Created by user on 19/02/24.
-//
 import UIKit
 import GoogleMaps
+import CoreLocation
 
 @main
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
-    let key = "GOOGLE_KEY"
+    let googleMapsAPIKey = ""
+
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        GMSServices.provideAPIKey("")
+        GMSServices.provideAPIKey(googleMapsAPIKey)
+
+        // Configura o LocationManager
+        LocationManager.shared.requestLocationAuthorization()
+        
+        // Configura a tela inicial
         let navigationController = UINavigationController(rootViewController: AddressViewController())
         window = UIWindow(frame: UIScreen.main.bounds)
         window?.rootViewController = navigationController
@@ -21,4 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         
         return true
     }
+
+    func applicationDidEnterBackground(_ application: UIApplication) {
+        // Inicia o monitoramento de localização significativa
+        LocationManager.shared.startMonitoringSignificantLocationChanges()
+    }
 }
+

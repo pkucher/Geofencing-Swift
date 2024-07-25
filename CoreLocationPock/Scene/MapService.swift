@@ -15,7 +15,7 @@ class MapService {
     func getAddressData(address: String, completion: @escaping (Result<AddressResultModel?, Error>) -> Void){
         var key = ""
         if let appDelegate = UIApplication.shared.delegate as? AppDelegate {
-            key = "&key=\(appDelegate.key)"
+            key = "&key=\(appDelegate.googleMapsAPIKey)"
         }
         let urlString = baseUrl + address + key
         let request = NSMutableURLRequest(url: NSURL(string: urlString)! as URL,

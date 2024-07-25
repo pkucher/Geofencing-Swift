@@ -13,7 +13,7 @@ class MapViewModel {
     var isLoading = false
     var hasError = false
     var coordinate: CLLocationCoordinate2D?
-    var raidusMeterDistance = 100
+    var raidusMeterDistance = 0
 
     func getData(address: String, completion: @escaping () -> Void) {
         MapService().getAddressData(address: address) {[weak self] result in
